@@ -1,0 +1,21 @@
+const adminRouter = require('express').Router()
+const addProduct = require('./controller/addProduct.controller')
+const {addShipping, updateFreeShipping} = require('./controller/shipping.controller')
+const createAdminAccount = require('./controller/createAdminAccount.controller')
+const adminLogin = require('./controller/adminLogin.controller')
+const {addCoupon, couponWorking} = require('./controller/coupon.controller')
+const {addCategory, getAllCategory} = require('./controller/category.controller')
+const adminAuth = require('../../middleware/adminAuth')
+const upload = require('../../middleware/handleMulter')
+
+adminRouter.post('/admin/createAdminAccount', createAdminAccount)
+adminRouter.post('/admin/adminLogin', adminLogin)
+adminRouter.post('/admin/addProduct',adminAuth ,upload.array("image"), addProduct)
+adminRouter.post('/admin/addShipping',adminAuth ,addShipping)
+adminRouter.put('/admin/updateFreeShipping/:checkFreeShipping',adminAuth ,updateFreeShipping)
+adminRouter.post('/admin/addCoupon',adminAuth ,addCoupon)
+adminRouter.put('/admin/couponWorking/:couponID',adminAuth ,couponWorking)
+adminRouter.post('/admin/addCategory',adminAuth ,addCategory)
+adminRouter.get('/admin/getAllCategory',adminAuth ,getAllCategory)
+
+module.exports = adminRouter
