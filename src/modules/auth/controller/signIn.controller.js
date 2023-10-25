@@ -15,7 +15,7 @@ const signIn = async (req, res) => {
             <p style="font-size: 20px; font-weight: bold; color: #000;">اهلا بك ${findUser.userName} يسعدنا انك قومت بالتسجيل معنا يجب عليك توثيق الحساب الخاص بك عن طريق الضغط علي توثيق الان</p><br>
             <a href="http://localhost:3000/confirmed/${userToken}" style="background-color: rgb(2, 141, 2); padding: 15px 50px; border-radius: 5px; color: #fff; font-size: 20px; text-decoration: none; margin-bottom: 20px;">توثيق الان</a>
         </div>`
-                sendEmail(userData.email, emailMessage, 'توثيق الحساب', "E-commerce")
+                sendEmail(findUser.email, emailMessage, 'توثيق الحساب', "E-commerce")
                 res.json({ message: 'هذا الحساب ليس موثق تفحص البريد الالكتروني الخاص بك قمنا بارسال رابط التوثيق اليك' })
             } else {
                 const checkPassword = bcrypt.compareSync(password, findUser.password)
