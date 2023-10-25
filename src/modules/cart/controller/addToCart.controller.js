@@ -10,9 +10,9 @@ const addToCart = async (req, res) => {
             if (findCart) {
                 const findProductInCart = findCart.products.map(e => e.productId.toString()).indexOf(ProductID)
                 if (findProductInCart != -1) {
-                    findCart.subTotal = (findCart.subTotal - (findCart.products[findProductInCart].quantity * findProduct.price)) + (findProduct.price * req.body.product.quantity)
-                    req.body.product.productId = ProductID
-                    findCart.products[findProductInCart] = req.body.product
+                    findCart.subTotal = (findCart.subTotal - (findCart.products[findProductInCart].quantity * findProduct.price)) + (findProduct.price * req.body.quantity)
+                    req.body.productId = ProductID
+                    findCart.products[findProductInCart] = req.body
                     const cart = await findCart.save()
                     if (cart) {
                         res.json({ message: 'success' })
@@ -20,9 +20,9 @@ const addToCart = async (req, res) => {
                         res.json({ message: 'خطأ...لم يتم اضافة المنتج الي العربة حاول مرة اخري' })
                     }
                 } else {
-                    findCart.subTotal = findCart.subTotal + (findProduct.price * req.body.product.quantity)
-                    req.body.product.productId = ProductID
-                    findCart.products.push(req.body.product)
+                    findCart.subTotal = findCart.subTotal + (findProduct.price * req.body.quantity)
+                    req.body.productId = ProductID
+                    findCart.products.push(req.body)
                     const cart = await findCart.save()
                     if (cart) {
                         res.json({ message: 'success' })
@@ -32,11 +32,11 @@ const addToCart = async (req, res) => {
                 }
             } else {
                 const products = []
-                req.body.userId = req.userData._id
-                req.body.subTotal = findProduct.price * req.body.product.quantity
-                req.body.product.productId = ProductID
-                products.push(req.body.product)
+                req.body.productId = ProductID
+                products.push(req.body)
                 req.body.products = products
+                req.body.userId = req.userData._id
+                req.body.subTotal = findProduct.price * req.body.quantity
                 const addProduct = new cartModel(req.body)
                 const cart = await addProduct.save()
                 if (cart) {
