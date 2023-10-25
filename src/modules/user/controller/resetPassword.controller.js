@@ -13,9 +13,9 @@ const senderResetPassword = async (req, res) => {
                 const emailMessage = ` <div style="direction: rtl; padding: 10px 30px;">
             <img src="https://logos-world.net/wp-content/uploads/2020/04/Adidas-Logo.png" style="margin: 20px 0px;" width="200px" alt="brand-logo"><br>
             <p style="font-size: 20px; font-weight: bold; color: #000;">اهلا بك ${findUser.userName} لقد قومت بتقديم طلب تغيير كلمة السر لاستكمال العملية برجاء الضغط علي تغيير كلمة السر</p><br>
-            <a href="http://localhost:8888/user/resetPassword/${userToken}" style="background-color: rgb(2, 141, 2); padding: 15px 50px; border-radius: 5px; color: #fff; font-size: 20px; text-decoration: none; margin-bottom: 20px;">تغيير كلمة السر</a>
+            <a href="http://localhost:3000/resetPassword/${userToken}" style="background-color: rgb(2, 141, 2); padding: 15px 50px; border-radius: 5px; color: #fff; font-size: 20px; text-decoration: none; margin-bottom: 20px;">تغيير كلمة السر</a>
         </div>`
-                sendEmail(findUser.email, emailMessage, 'اعادة تعيين كلمة السر')
+                sendEmail(findUser.email, emailMessage, 'اعادة تعيين كلمة السر', "E-commerce")
                 res.json({ message: 'success' });
             } else {
                 res.json({ message: 'لا يمكنك تنفيذ هذه المعاملة لقد تم حذف هذا الحساب بشكل نهائي بسبب حدوث اعمال نصب واحتيال' })

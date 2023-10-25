@@ -7,7 +7,7 @@ const addComment = require('./controller/addComment.controller')
 const userAuth = require('../../middleware/userAuth')
 const upload = require('../../middleware/handleMulter')
 
-userRouter.get('/user/confirmed/:userToken', confirmed)
+userRouter.put('/user/confirmed/:userToken', confirmed)
 userRouter.put('/user/updateProfilePic',userAuth ,upload.single("image"), updateProfilePic)
 userRouter.get('/user/senderResetPassword/:email', senderResetPassword)
 userRouter.get('/user/resetPassword/:userToken', resetPassword)
